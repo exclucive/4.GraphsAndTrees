@@ -13,6 +13,8 @@ public class LinkedList<T> {
     typealias Node = LinkedListNode<T>
     var head: Node?
     var tail: Node?
+    private(set) public var count: Int = 0 
+    
     
     public init(array: [T]) {
         assert(array.count > 0)
@@ -23,6 +25,7 @@ public class LinkedList<T> {
     }
     
     public func add(value: T) {
+        count += 1
         let node = Node(value: value)
         
         if head == nil {
