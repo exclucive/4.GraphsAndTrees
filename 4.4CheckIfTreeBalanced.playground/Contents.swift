@@ -11,14 +11,25 @@ class BinaryTree<T> {
         self.value = value
     }
     
-//    func isTreeBalanced() -> Bool {
-//        
-//    }
+    func isTreeBalanced() -> Bool {
+        let leftHeight = treeHeight(left)
+        let rightHeight = treeHeight(right)
+        
+        if (leftHeight - 1 == rightHeight) ||
+            (rightHeight - 1 == leftHeight) ||
+            (leftHeight == rightHeight) {
+            return true
+        }
+        
+        return false
+    }
     
-    func treeHeight(_ depth: inout Int) {
-        depth += 1
-        left?.treeHeight(&depth)
-        right?.treeHeight(&depth)
+    func treeHeight(_ node: BinaryTree<T>?) -> Int {
+        guard let node = node else {
+            return 0
+        }
+        
+        return 1 + max(treeHeight(node.left), treeHeight(node.right))
     }
 }
 
@@ -41,8 +52,7 @@ one.right = five
 three.left = six
 three.right = seven
 
-var height = 0
-rootTwo.treeHeight(&height)
-print(height)
+var height = rootTwo.treeHeight(rootTwo)
+rootTwo.isTreeBalanced()
 
 
