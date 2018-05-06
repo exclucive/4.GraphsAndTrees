@@ -24,6 +24,8 @@ class Heap<T: Comparable> {
 
     init(type: HeapType, array: [T]) {
         self.type = type
+        self.elements = array
+        buildHeap(array)
     }
     
     private func compare(_ el1: T, el2: T) -> Bool {
@@ -47,8 +49,12 @@ class Heap<T: Comparable> {
         return ((n - 1/2) - 1)
     }
     
-    private func heapify(_ array: [T]) {
+    private func buildHeap(_ array: [T]) {
+        let startIndex = array.count/2 - 1
         
+        for index in stride(from: startIndex, through: 0, by: -1) {
+            shiftDown(index)
+        }
     }
     
     private func shiftUp(_ n: Int) {
@@ -79,8 +85,6 @@ class Heap<T: Comparable> {
     
         if index == n { return }
         
-        stride
-        
         elements.swapAt(index, n)
         shiftDown(index, endIndex: endIndex)
     }
@@ -108,13 +112,16 @@ extension Heap: CustomStringConvertible {
     }
 }
 
-let heap = Heap<Int>(type: .min)
-heap.insert(element: -192)
-heap.insert(element: 10)
-heap.insert(element: 20)
-heap.insert(element: 1)
-heap.insert(element: 5)
-heap.insert(element: -27)
+let array = [10, 20, 1, -192, 5, -27]
+let heap = Heap<Int>(type: .min, array: array)
+print(heap)
+
+//heap.insert(element: -192)
+//heap.insert(element: 10)
+//heap.insert(element: 20)
+//heap.insert(element: 1)
+//heap.insert(element: 5)
+//heap.insert(element: -27)
 
 heap.remove()
 print(heap)
@@ -126,3 +133,4 @@ heap.remove()
 print(heap)
 heap.insert(element: -99)
 print(heap)
+
